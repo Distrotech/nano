@@ -100,11 +100,17 @@
 /* Define to 1 if you have the `iswspace' function. */
 #undef HAVE_ISWSPACE
 
+/* Define to 1 if you have the `gpm' library (-lgpm). */
+#undef HAVE_LIBGPM
+
 /* Define to 1 if you have the <libintl.h> header file. */
 #undef HAVE_LIBINTL_H
 
 /* Define to 1 if you have the `magic' library (-lmagic). */
 #undef HAVE_LIBMAGIC
+
+/* Define to 1 if you have the `tinfo' library (-ltinfo). */
+#undef HAVE_LIBTINFO
 
 /* Define to 1 if you have the <limits.h> header file. */
 #undef HAVE_LIMITS_H
