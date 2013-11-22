@@ -22,7 +22,7 @@ nano_SOURCES =	browser.c \
 		utils.c \
 		winio.c 
 
-nano_LDADD = @GLIB_LIBS@ @LIBINTL@
+nano_LDADD = @GLIB_LIBS@ @LIBINTL@ @CURSES_LIB@
 
 install-exec-hook:
 	cd $(DESTDIR)$(bindir) && rm -f rnano && $(LN_S) nano rnano

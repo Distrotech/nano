@@ -440,8 +440,10 @@ dnl Checks for libraries.
 if eval "test x$CURSES_LIB_NAME = x"; then
     AC_CHECK_HEADERS(ncurses.h)
 
+    AC_CHECK_LIB(gpm, Gpm_Open)
+    AC_CHECK_LIB(tinfo, tputs)
+    OLDLIBS="$LIBS"
     if test x$enable_utf8 != xno; then
-	OLDLIBS="$LIBS"
 	AC_CHECK_TOOL(NCURSESW_CONFIG, ncursesw5-config, no)
 	if test "x$NCURSESW_CONFIG" != xno; then
 	    CURSES_LIB=`$NCURSESW_CONFIG --libs`
@@ -456,18 +458,22 @@ if eval "test x$CURSES_LIB_NAME = x"; then
 
     if eval "test x$CURSES_LIB_NAME = x"; then
 	AC_CHECK_LIB(ncurses, initscr, [CURSES_LIB="-lncurses" CURSES_LIB_NAME=ncurses])
+	LIBS="$OLDLIBS"
     fi
 fi
 
 if eval "test x$CURSES_LIB_NAME = x"; then
     AC_CHECK_HEADERS(curses.h)
 
+    OLDLIBS="$LIBS"
     if test x$enable_utf8 != xno; then
 	AC_CHECK_LIB(curses, get_wch, [CURSES_LIB="-lcurses" CURSES_LIB_NAME=curses CURSES_LIB_WIDE=yes])
+	LIBS="$OLDLIBS"
     fi
 
     if eval "test x$CURSES_LIB_NAME = x"; then
-	 AC_CHECK_LIB(curses, initscr, [CURSES_LIB="-lcurses" CURSES_LIB_NAME=curses])
+	AC_CHECK_LIB(curses, initscr, [CURSES_LIB="-lcurses" CURSES_LIB_NAME=curses])
+	LIBS="$OLDLIBS"
     fi
 fi
 
@@ -480,11 +486,12 @@ else
     AC_MSG_RESULT([Using $CURSES_LIB_NAME as the curses library])
 fi
 
+OLDLIBS="$LIBS"
 AC_CHECK_LIB([$CURSES_LIB_NAME], use_default_colors, AC_DEFINE(HAVE_USE_DEFAULT_COLORS, 1, [Define this if your curses library has the use_default_colors() command.]))
 
 dnl Parse any configure options.
 
-LIBS="$LIBS $CURSES_LIB"
+LIBS="$OLDLIBS"
 
 AC_SUBST(CURSES_LIB)
 
